@@ -1,0 +1,51 @@
+{% extends "book_base.html" %}
+
+{% block mainblock %}
+
+{# CRITICAL CHANGE 1: Changed outer container to col-xl-10 to make the card slightly smaller #}
+<div class="col-xl-12 col-md-12 col-sm-12 p-2 mx-auto"> 
+    <div class="card card-common p-4">
+        
+        {# CRITICAL CHANGE 2: Use d-flex to align the image and the main text block side-by-side #}
+        <div class="d-flex">
+            
+            {# 1. Image Container (Left Side) - Set explicit width and remove padding #}
+            {# CRITICAL CHANGE 3: Using a fixed 25% width to act as our 'col-3' and ensuring flush left #}
+            <div class="p-0 mr-3 d-flex align-items-start" style="width: 25%;"> 
+                <img src="{{ book.image_url }}" class="img-fluid" style="max-height: 250px; object-fit: contain;" alt="Cover of {{ book.title }}" />
+            </div>
+            
+            {# 2. Details Container (Right Side) - Takes up the remaining space #}
+            {# CRITICAL CHANGE 4: All content is here, and it will flush left against the image container #}
+            <div class="flex-grow-1"> 
+                
+                {# Metadata Section #}
+                <h4 class="card-title">{{ book.title }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">By {{ book.author }}</h6>
+                
+                <p class="card-text small mb-1">
+                    Category: {{ book.category }}, {{ book.genres | join(', ') }}
+                </p>
+                {# CRITICAL CHANGE 5: Copies/Available with bold numerics #}
+                <p class="card-text small mb-3">
+                    Pages: {{ book.pages }}<br>
+                    Copies: <b>{{ book.copies }}</b> Available: <b>{{ book.available }}</b>
+                </p>
+
+                {# Description Section #}
+                {% for paragraph in book.description %}
+                    <p class="card-text">{{ paragraph }}</p>
+                {% endfor %}
+                
+                {# Back Button #}
+                <a href="{{ url_for('book.book_titles') }}" class="btn btn-success float-right mt-4">Back to Book Titles</a>
+                
+            </div>
+            
+        </div>
+        {# End of d-flex container #}
+
+    </div>
+</div>
+
+{% endblock %}
