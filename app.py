@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, Blueprint, request
-from models.books import Book # Import the model we just created
+from models.books import Book 
 
 def create_app():
     app = Flask(__name__)
