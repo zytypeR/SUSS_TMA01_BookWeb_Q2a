@@ -1,7 +1,4 @@
-# In models/books.py
-import operator
-
-# --- Raw Book Data provided by the user ---
+# raw book data provided 
 RAW_BOOK_DATA = [
     {
         'genres': ["Fantasy","Dark Academia", "Fiction", "Romance"]
@@ -177,32 +174,25 @@ class Book:
         """
         filtered_data = []
 
-        # 🚨 CHANGE 2: Apply Filter Logic
         if category_filter == 'All':
-            # If 'All' is selected, start with the full list
+            # if 'All' is selected, start with the full list
             books_to_process = RAW_BOOK_DATA
         else:
-            # Otherwise, filter the list based on the category
+            # filter the list based on the category
             for book in RAW_BOOK_DATA:
                 if book['category'] == category_filter:
                     filtered_data.append(book)
             books_to_process = filtered_data
             
-        # Start formatting the filtered list
         formatted_books = []
 
         for book in books_to_process:
-            # Create a copy and standardize field names for the template
             formatted = book.copy()
-            formatted['image_url'] = book['url'] # Map 'url' to 'image_url' for template
-            formatted['author'] = ", ".join(book['authors']) # Convert list of authors to string
-            
-            # The description is already a list of paragraphs, which is perfect for the template logic
+            formatted['image_url'] = book['url'] 
+            formatted['author'] = ", ".join(book['authors']) 
             
             formatted_books.append(formatted)
             
-        # *** CRUCIAL STEP: Sort the list by 'title' ***
-        # The key=lambda is essential to meet the requirement of sorting by title.
         return sorted(formatted_books, key=lambda x: x['title'])
     
     # for more details when clicked 
@@ -219,7 +209,6 @@ class Book:
                 break
         
         if found_book:
-            # Format the book data similar to getAllBooks
             formatted = found_book.copy()
             formatted['image_url'] = found_book['url']
             formatted['author'] = ", ".join(found_book['authors'])
